@@ -98,3 +98,48 @@ El proyecto cuenta con habilidades (skills) especializadas en la carpeta [.agent
    ```
 3. **Manejo de Errores y Carga (Loading):**
    - Utiliza archivos `loading.tsx` y `error.tsx` de Next.js para estados de carga y manejo de errores a nivel de ruta de forma declarativa.
+
+---
+
+## 🌐 Landing Page — Web Bookmarker
+
+La landing page principal está implementada en `src/app/page.tsx` y compuesta por los siguientes componentes en `src/components/shared/`:
+
+### Estructura de Componentes
+
+| Componente | Ruta | Descripción |
+|---|---|---|
+| `Navbar` | `shared/Navbar.tsx` | Navbar sticky con logo, navegación, selector EN/ES y CTA animado |
+| `HeroSection` | `shared/HeroSection.tsx` | Hero con tagline, CTAs y mockup animado del bookmarklet |
+| `BookmarkletMockup` | `shared/BookmarkletMockup.tsx` | UI interactiva que simula el popup del bookmarklet (tabs funcionales) |
+| `HowItWorks` | `shared/HowItWorks.tsx` | 3 pasos de instalación con Cards de Shadcn |
+| `FeatureImages` | `shared/FeatureImages.tsx` | Demo interactiva de la tab de imágenes (grid seleccionable + toolbar) |
+| `FeatureStyles` | `shared/FeatureStyles.tsx` | Demo interactiva de la tab de paleta de colores y tipografías |
+| `InstallSection` | `shared/InstallSection.tsx` | Link arrastrable del bookmarklet + instrucciones por navegador (Tabs) |
+| `Footer` | `shared/Footer.tsx` | Footer con links y copyright |
+
+### Bookmarklet JavaScript
+
+El código fuente del bookmarklet está en `public/bookmarklet.js` (versión legible sin minificar).
+
+El script incrustado en `InstallSection.tsx` como `BOOKMARKLET_CODE` es la versión compacta lista para usar como `javascript:` URL.
+
+**Funcionalidades del bookmarklet:**
+- **Tab Imágenes:** Extrae `<img>`, `background-image` y Open Graph images → grid seleccionable → descarga individual o ZIP (con JSZip cargado dinámicamente desde CDN)
+- **Tab Estilos:** Extrae colores (computed styles) y tipografías del DOM → swatches copiables + previews de fuentes
+
+**Nota técnica importante:** React 19 bloquea `javascript:` URLs en el `href` durante el renderizado SSR. La solución implementada usa `useRef` + `useEffect` en `InstallSection.tsx` para inyectar el href en el DOM solo en el cliente, tras la hidratación.
+
+### Diseño Visual
+
+- **Tema:** Dark mode nativo (no requiere `.dark` class toggle)
+- **Fuentes:** `Syne` (display/headings) + `DM Sans` (body) — cargadas con `next/font/google`
+- **Paleta:** Navy profundo (#0f0f13 equiv.) + acento violeta (`oklch(0.72 0.2 295)`) + cyan accent
+- **Animaciones:** `animate-float` (mockup hero), `animate-reveal-up` (entradas staggered), `animate-pulse-glow` (CTAs)
+- **Fondo:** Mesh gradient con orbs radiales en secciones hero
+
+### Notas de Compatibilidad
+
+- El bookmarklet puede estar bloqueado en sitios con CSP estricta (e.g., GitHub, Google)
+- La descarga ZIP requiere acceso CORS a los recursos — en sitios con CORS restrictivo solo funciona la descarga individual
+- Testado en Chrome. Funciona como bookmarklet clásico en todos los navegadores modernos.

@@ -28,6 +28,7 @@
     "eslint": "^9",
     "eslint-config-next": "16.2.7",
     "tailwindcss": "^4",
+    "terser": "^5.48.0",
     "typescript": "^5"
   }
 }
