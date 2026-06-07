@@ -105,7 +105,20 @@ export const translations = {
     footLinksPrivacy: "Privacy",
     footLinksTerms: "Terms",
     footTagline: "— Extract anything from the web.",
-    footLicense: "MIT License."
+    footLicense: "MIT License.",
+
+    // Privacy Policy
+    privacyTitle: "Privacy Policy",
+    privacySub: "Webexa runs 100% locally and securely.",
+    privacyColTitle: "Zero data collection",
+    privacyColDesc: "Webexa does not collect, store, track, or send any user data or information to external servers.",
+    privacyAccTitle: "No access to your data",
+    privacyAccDesc: "We do not access, use, or store your accounts, passwords, browsing history, cookies, or personal files. No registration or login is required.",
+    privacyLocTitle: "Local execution",
+    privacyLocDesc: "All operations to extract images, analyze styles, color palettes, and typography run entirely inside your own web browser.",
+    privacySecTitle: "Secure downloads",
+    privacySecDesc: "Selected images are downloaded directly from their source servers to your device (or zipped locally) without any middlemen.",
+    privacyFooter: "Webexa is a transparent utility built to respect your privacy 100%."
   },
   es: {
     // Navbar
@@ -213,6 +226,19 @@ export const translations = {
     footLinksPrivacy: "Privacidad",
     footLinksTerms: "Condiciones",
     footTagline: "— Extrae lo que quieras de la web.",
-    footLicense: "Licencia MIT."
+    footLicense: "Licencia MIT.",
+
+    // Privacy Policy
+    privacyTitle: "Política de Privacidad",
+    privacySub: "Webexa funciona de forma 100% local y segura.",
+    privacyColTitle: "Sin recolección de datos",
+    privacyColDesc: "Webexa no recopila, almacena, rastrea ni envía ningún tipo de información del usuario a servidores externos.",
+    privacyAccTitle: "Sin acceso a tus datos",
+    privacyAccDesc: "No usamos, accedemos ni guardamos tus cuentas, contraseñas, historial de navegación, cookies ni archivos personales. No se requiere registro ni inicio de sesión.",
+    privacyLocTitle: "Procesamiento local",
+    privacyLocDesc: "Todas las operaciones de extracción de imágenes, análisis de estilos, paletas de colores y tipografías se ejecutan localmente en tu propio navegador.",
+    privacySecTitle: "Descargas seguras",
+    privacySecDesc: "Las imágenes seleccionadas se descargan directamente de los servidores de origen a tu computadora (o se empaquetan en ZIP en tu navegador) sin intermediarios.",
+    privacyFooter: "Webexa es una herramienta transparente diseñada para respetar tu privacidad al 100%."
   }
 };

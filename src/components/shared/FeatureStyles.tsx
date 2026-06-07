@@ -68,7 +68,7 @@ export function FeatureStyles() {
                 </p>
                 <button
                   onClick={() => handleCopy(MOCK_COLORS.map((c) => c.hex).join(", "))}
-                  className="text-[11px] px-2.5 py-1 rounded-lg bg-white/8 text-white/50 hover:text-white/80 border border-white/8 transition-colors font-semibold"
+                  className="text-[11px] px-2.5 py-1 rounded-lg bg-white/8 text-white/50 hover:text-white/80 border border-white/8 transition-colors font-semibold cursor-pointer"
                 >
                   {copied ? t("featStyleCopied") : t("featStyleCopyAll")}
                 </button>

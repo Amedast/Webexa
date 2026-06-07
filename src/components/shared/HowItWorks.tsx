@@ -9,19 +9,16 @@ export function HowItWorks() {
   const STEPS = [
     {
       number: "01",
-      emoji: "🔖",
       title: t("howStep1Title"),
       description: t("howStep1Desc"),
     },
     {
       number: "02",
-      emoji: "🌐",
       title: t("howStep2Title"),
       description: t("howStep2Desc"),
     },
     {
       number: "03",
-      emoji: "⚡",
       title: t("howStep3Title"),
       description: t("howStep3Desc"),
     },
@@ -73,17 +70,8 @@ export function HowItWorks() {
               className="relative border-border/50 bg-card/60 backdrop-blur-sm hover:border-primary/30 transition-all duration-300 group hover:-translate-y-1"
               style={{ animationDelay: `${i * 150}ms` }}
             >
-              <CardContent className="pt-8 pb-7 px-7">
-                {/* Number badge */}
-                <div
-                  className="w-12 h-12 rounded-2xl border border-primary/20 bg-primary/10 flex items-center justify-center text-lg mb-6 group-hover:scale-110 transition-transform duration-300"
-                >
-                  {step.emoji}
-                </div>
-
-                <span
-                  className="text-[11px] font-bold tracking-widest text-primary/60 uppercase mb-2 block"
-                >
+              <CardContent className="py-5 px-7">
+                <span className="text-[11px] font-bold tracking-widest text-primary/60 uppercase mb-2 block">
                   {t("howStep")} {step.number}
                 </span>
 

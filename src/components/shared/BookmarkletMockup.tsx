@@ -138,21 +138,21 @@ export function BookmarkletMockup() {
             <div className="flex items-center gap-2 mb-3 flex-wrap">
               <button
                 onClick={selectAll}
-                className="text-[11px] px-2.5 py-1 rounded-lg bg-white/8 text-white/60 hover:bg-white/12 hover:text-white/90 transition-colors border border-white/8"
+                className="text-[11px] px-2.5 py-1 rounded-lg bg-white/8 text-white/60 hover:bg-white/12 hover:text-white/90 transition-colors border border-white/8 cursor-pointer"
               >
                 {t("featImgSelectAll")}
               </button>
               <button
                 onClick={clearAll}
-                className="text-[11px] px-2.5 py-1 rounded-lg bg-white/8 text-white/60 hover:bg-white/12 hover:text-white/90 transition-colors border border-white/8"
+                className="text-[11px] px-2.5 py-1 rounded-lg bg-white/8 text-white/60 hover:bg-white/12 hover:text-white/90 transition-colors border border-white/8 cursor-pointer"
               >
                 {t("featImgClear")}
               </button>
-              <select className="text-[11px] px-2 py-1 rounded-lg bg-white/8 text-white/60 border border-white/8 outline-none ml-auto cursor-pointer">
-                <option>{t("featImgOriginal")}</option>
-                <option>PNG</option>
-                <option>JPEG</option>
-                <option>WebP</option>
+              <select className="text-[11px] pl-2 pr-6 py-1 rounded-lg bg-white/8 text-white/60 border border-white/8 outline-none ml-auto cursor-pointer appearance-none bg-[url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20fill%3D%22none%22%20viewBox%3D%220%200%2020%2020%22%3E%3Cpath%20stroke%3D%22%23ffffff80%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20stroke-width%3D%221.5%22%20d%3D%22m6%208%204%204%204-4%22%2F%3E%3C%2Fsvg%3E')] bg-[size:1rem_1rem] bg-[right_0.25rem_center] bg-no-repeat">
+                <option className="bg-[#15151a] text-white">{t("featImgOriginal")}</option>
+                <option className="bg-[#15151a] text-white">PNG</option>
+                <option className="bg-[#15151a] text-white">JPEG</option>
+                <option className="bg-[#15151a] text-white">WebP</option>
               </select>
             </div>
 
@@ -160,9 +160,7 @@ export function BookmarkletMockup() {
               <button
                 className={cn(
                   "text-[11px] px-3 py-1.5 rounded-lg font-semibold transition-all border border-primary/20",
-                  selectedImages.size > 0
-                    ? "bg-primary text-white hover:bg-primary/80"
-                    : "bg-white/5 text-white/30 cursor-not-allowed",
+                  selectedImages.size > 0 ? "bg-primary text-white hover:bg-primary/80 cursor-pointer" : "bg-white/5 text-white/30 cursor-not-allowed",
                 )}
               >
                 {t("featImgDownload")} ({selectedImages.size})
@@ -170,9 +168,7 @@ export function BookmarkletMockup() {
               <button
                 className={cn(
                   "text-[11px] px-3 py-1.5 rounded-lg font-semibold transition-all border border-primary/20",
-                  selectedImages.size > 0
-                    ? "bg-primary text-white hover:bg-primary/80"
-                    : "bg-white/5 text-white/30 cursor-not-allowed",
+                  selectedImages.size > 0 ? "bg-primary text-white hover:bg-primary/80 cursor-pointer" : "bg-white/5 text-white/30 cursor-not-allowed",
                 )}
               >
                 {t("featImgZip")}
@@ -186,7 +182,7 @@ export function BookmarkletMockup() {
                   key={img.id}
                   onClick={() => toggleImage(img.id)}
                   className={cn(
-                    "relative rounded-xl overflow-hidden aspect-square transition-all duration-200 border-2 bg-neutral-900",
+                    "relative rounded-xl overflow-hidden aspect-square transition-all duration-200 border-2 bg-neutral-900 cursor-pointer",
                     selectedImages.has(img.id)
                       ? "border-primary scale-[0.97]"
                       : "border-transparent hover:border-primary/40",
@@ -230,7 +226,7 @@ export function BookmarkletMockup() {
               <p className="text-[10px] text-white/40 font-semibold uppercase tracking-widest font-mono">
                 {t("mockColorsTitle")}
               </p>
-              <button className="text-[11px] px-2.5 py-0.5 rounded-lg bg-white/8 text-white/50 hover:text-white/80 border border-white/8 transition-colors font-semibold">
+              <button className="text-[11px] px-2.5 py-0.5 rounded-lg bg-white/8 text-white/50 hover:text-white/80 border border-white/8 transition-colors font-semibold cursor-pointer">
                 {t("featStyleCopyAll")}
               </button>
             </div>
