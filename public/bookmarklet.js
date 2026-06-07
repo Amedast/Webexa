@@ -1,5 +1,7 @@
+/* eslint-disable */
 (function () {
   "use strict";
+
 
   // ─── Constants ──────────────────────────────────────────────────────────────
   var POPUP_ID = "__wb_popup__";
@@ -92,16 +94,16 @@
     #${POPUP_ID} .__wb_img_card.__wb_selected .__wb_img_check { display: flex; }
     #${POPUP_ID} .__wb_count { font-size: 11px; color: #777; margin-left: auto; }
     #${POPUP_ID} .__wb_empty { text-align: center; color: #555; padding: 32px 0; font-size: 13px; }
-    #${POPUP_ID} .__wb_swatches { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; }
+    #${POPUP_ID} .__wb_swatches { display: flex; flex-wrap: wrap; gap: 16px 10px; margin-bottom: 20px; }
+    #${POPUP_ID} .__wb_swatch_wrapper { display: flex; flex-direction: column; align-items: center; gap: 6px; }
     #${POPUP_ID} .__wb_swatch {
       width: 48px; height: 48px; border-radius: 10px;
       cursor: pointer; border: 1px solid rgba(255,255,255,0.1);
-      transition: transform 0.15s; position: relative;
+      transition: transform 0.15s;
     }
     #${POPUP_ID} .__wb_swatch:hover { transform: scale(1.08); }
-    #${POPUP_ID} .__wb_swatch span {
-      position: absolute; bottom: -18px; left: 50%; transform: translateX(-50%);
-      font-size: 9px; color: #666; white-space: nowrap;
+    #${POPUP_ID} .__wb_swatch_label {
+      font-size: 9px; color: #888; font-family: monospace;
     }
     #${POPUP_ID} .__wb_fonts { display: flex; flex-direction: column; gap: 10px; }
     #${POPUP_ID} .__wb_font_card {
@@ -345,7 +347,7 @@
       zip.generateAsync({ type: "blob" }).then(function (content) {
         var a = document.createElement("a");
         a.href = URL.createObjectURL(content);
-        a.download = "web-bookmarker-images.zip";
+        a.download = "webexa-images.zip";
         a.click();
         toast("ZIP downloaded!");
       });
@@ -359,8 +361,9 @@
     var swatchesHtml = data.colors.map(function (c) {
       var hex = rgbToHex(c);
       return `
-        <div class="__wb_swatch" style="background:${c}" title="${hex}" onclick="navigator.clipboard.writeText('${hex}').then(()=>{})">
-          <span>${hex}</span>
+        <div class="__wb_swatch_wrapper">
+          <div class="__wb_swatch" style="background:${c}" title="${hex}" onclick="navigator.clipboard.writeText('${hex}').then(()=>{})"></div>
+          <span class="__wb_swatch_label">${hex}</span>
         </div>
       `;
     }).join("");
@@ -406,12 +409,12 @@
 
   popup.innerHTML = `
     <div class="__wb_header">
-      <span class="__wb_logo">⬡ Web Bookmarker</span>
+      <span class="__wb_logo">⬡ Webexa</span>
       <button class="__wb_close" id="__wb_close_btn">×</button>
     </div>
     <div class="__wb_tabs">
-      <button class="__wb_tab __wb_active" data-tab="images">🖼 Images</button>
-      <button class="__wb_tab" data-tab="styles">🎨 Styles</button>
+      <button class="__wb_tab __wb_active" data-tab="images"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 6px; display: inline-block; vertical-align: middle;"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg>Images</button>
+      <button class="__wb_tab" data-tab="styles"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 6px; display: inline-block; vertical-align: middle;"><path d="M12 22C17.52 22 22 17.52 22 12S17.52 2 12 2 2 6.48 2 12c0 2.2 1.8 4 4 4h1a2 2 0 0 1 2 2v2a2 2 0 0 0 2 2Z"/><circle cx="7.5" cy="10.5" r="1"/><circle cx="11.5" cy="7.5" r="1"/><circle cx="16.5" cy="9.5" r="1"/></svg>Styles</button>
     </div>
     <div class="__wb_body"></div>
   `;

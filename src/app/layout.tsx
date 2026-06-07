@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
-import { Syne, DM_Sans } from "next/font/google";
+import { Outfit, DM_Sans } from "next/font/google";
 import { TooltipProvider } from "@/components/ui/tooltip";
+import { LanguageProvider } from "@/lib/LanguageContext";
 import "./globals.css";
 
-const syne = Syne({
-  variable: "--font-syne",
+const outfit = Outfit({
+  variable: "--font-display",
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700", "800"],
+  weight: ["300", "400", "500", "600", "700", "800"],
   display: "swap",
 });
 
@@ -18,7 +19,7 @@ const dmSans = DM_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "Web Bookmarker — Extract Images & Styles from Any Website",
+  title: "Webexa — Extract Images & Styles from Any Website",
   description:
     "A powerful browser bookmarklet that lets you extract, preview, and download all images from any webpage, plus capture the full color palette and typography. No extension needed.",
   keywords: [
@@ -31,7 +32,7 @@ export const metadata: Metadata = {
     "web design tools",
   ],
   openGraph: {
-    title: "Web Bookmarker — Extract Images & Styles from Any Website",
+    title: "Webexa — Extract Images & Styles from Any Website",
     description:
       "Install once, use everywhere. Extract images, colors, and fonts from any webpage with a single click.",
     type: "website",
@@ -39,7 +40,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Web Bookmarker",
+    title: "Webexa",
     description:
       "Extract images, color palettes and typography from any website instantly.",
   },
@@ -53,10 +54,12 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${syne.variable} ${dmSans.variable} h-full antialiased`}
+      className={`${outfit.variable} ${dmSans.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-background text-foreground">
-        <TooltipProvider>{children}</TooltipProvider>
+        <LanguageProvider>
+          <TooltipProvider>{children}</TooltipProvider>
+        </LanguageProvider>
       </body>
     </html>
   );

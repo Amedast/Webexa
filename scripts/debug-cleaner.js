@@ -1,6 +1,8 @@
+/* eslint-disable */
 const fs = require('fs');
 const path = require('path');
 const code = fs.readFileSync(path.join(__dirname, '../public/bookmarklet.js'), 'utf8');
+
 
 let i = 0;
 let state = 'NORMAL';

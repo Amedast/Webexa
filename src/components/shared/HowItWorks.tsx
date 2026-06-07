@@ -1,46 +1,45 @@
-import { Card, CardContent } from "@/components/ui/card";
+"use client";
 
-const STEPS = [
-  {
-    number: "01",
-    emoji: "🔖",
-    title: "Drag to your bookmarks bar",
-    description:
-      "Simply drag the Install button below to your browser's bookmarks bar. No extension, no permissions, no account needed.",
-    es: "Arrastra el botón a tu barra de marcadores. Sin extensiones, sin permisos.",
-  },
-  {
-    number: "02",
-    emoji: "🌐",
-    title: "Visit any website",
-    description:
-      "Navigate to any webpage you want to extract images or styles from. Works on virtually any modern website.",
-    es: "Navega a cualquier página web de la que quieras extraer imágenes o estilos.",
-  },
-  {
-    number: "03",
-    emoji: "⚡",
-    title: "Click & extract",
-    description:
-      "Click the Web Bookmarker bookmark. A sleek popup appears instantly — browse images, copy colors, inspect fonts.",
-    es: "Haz clic en el marcador. Aparece el popup al instante — descarga imágenes, copia colores, inspecciona fuentes.",
-  },
-];
+import { Card, CardContent } from "@/components/ui/card";
+import { useLanguage } from "@/lib/LanguageContext";
 
 export function HowItWorks() {
+  const { t } = useLanguage();
+
+  const STEPS = [
+    {
+      number: "01",
+      emoji: "🔖",
+      title: t("howStep1Title"),
+      description: t("howStep1Desc"),
+    },
+    {
+      number: "02",
+      emoji: "🌐",
+      title: t("howStep2Title"),
+      description: t("howStep2Desc"),
+    },
+    {
+      number: "03",
+      emoji: "⚡",
+      title: t("howStep3Title"),
+      description: t("howStep3Desc"),
+    },
+  ];
+
   return (
     <section id="how-it-works" className="py-24 relative">
       <div className="max-w-6xl mx-auto px-6">
         {/* Section header */}
         <div className="text-center mb-16">
           <p className="text-primary text-sm font-semibold tracking-widest uppercase mb-3">
-            How it works
+            {t("howTitle")}
           </p>
           <h2
             className="text-4xl sm:text-5xl font-extrabold text-foreground tracking-tight"
-            style={{ fontFamily: "var(--font-syne)" }}
+            style={{ fontFamily: "var(--font-display)" }}
           >
-            Up and running in{" "}
+            {t("howHeadingPart1")}{" "}
             <span
               className="text-transparent bg-clip-text"
               style={{
@@ -48,11 +47,11 @@ export function HowItWorks() {
                   "linear-gradient(135deg, oklch(0.72 0.2 295), oklch(0.6 0.18 220))",
               }}
             >
-              30 seconds
+              {t("howHeadingPart2")}
             </span>
           </h2>
           <p className="text-muted-foreground mt-4 max-w-xl mx-auto">
-            No installation wizard, no sign-up. Just a single bookmark that works everywhere.
+            {t("howSubheading")}
           </p>
         </div>
 
@@ -85,12 +84,12 @@ export function HowItWorks() {
                 <span
                   className="text-[11px] font-bold tracking-widest text-primary/60 uppercase mb-2 block"
                 >
-                  Step {step.number}
+                  {t("howStep")} {step.number}
                 </span>
 
                 <h3
                   className="text-lg font-bold text-foreground mb-3 leading-snug"
-                  style={{ fontFamily: "var(--font-syne)" }}
+                  style={{ fontFamily: "var(--font-display)" }}
                 >
                   {step.title}
                 </h3>

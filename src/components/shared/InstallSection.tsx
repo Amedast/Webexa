@@ -4,27 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
-
-const BROWSER_STEPS = {
-  chrome: [
-    'Right-click the bookmarks bar and select "Show bookmarks bar" if hidden',
-    'Drag the "⬡ Web Bookmarker" button below into the bookmarks bar',
-    "Navigate to any website you want to extract assets from",
-    "Click the bookmarklet — the popup appears instantly",
-  ],
-  firefox: [
-    'Right-click the toolbar and select "Bookmarks Toolbar" → "Always Show"',
-    'Drag the "⬡ Web Bookmarker" button below into the bookmarks toolbar',
-    "Visit any page and click the bookmarklet",
-    "Use the popup to download images or grab color palettes",
-  ],
-  safari: [
-    "Enable the Favorites Bar: View → Show Favorites Bar",
-    'Drag the "⬡ Web Bookmarker" button below into your Favorites Bar',
-    "Navigate to the website you want to inspect",
-    "Click the bookmark from your favorites bar",
-  ],
-};
+import { useLanguage } from "@/lib/LanguageContext";
 
 interface InstallSectionProps {
   bookmarkletCode?: string;
@@ -33,6 +13,28 @@ interface InstallSectionProps {
 export function InstallSection({ bookmarkletCode = "" }: InstallSectionProps) {
   const [dragging, setDragging] = useState(false);
   const linkRef = useRef<HTMLAnchorElement>(null);
+  const { t } = useLanguage();
+
+  const BROWSER_STEPS = {
+    chrome: [
+      t("instStepChrome1"),
+      t("instStepChrome2"),
+      t("instStepChrome3"),
+      t("instStepChrome4"),
+    ],
+    firefox: [
+      t("instStepFirefox1"),
+      t("instStepFirefox2"),
+      t("instStepFirefox3"),
+      t("instStepFirefox4"),
+    ],
+    safari: [
+      t("instStepSafari1"),
+      t("instStepSafari2"),
+      t("instStepSafari3"),
+      t("instStepSafari4"),
+    ],
+  };
 
   useEffect(() => {
     if (linkRef.current && bookmarkletCode) {
@@ -46,13 +48,13 @@ export function InstallSection({ bookmarkletCode = "" }: InstallSectionProps) {
         {/* Header */}
         <div className="text-center mb-16">
           <p className="text-primary text-sm font-semibold tracking-widest uppercase mb-3">
-            Installation
+            {t("instTitle")}
           </p>
           <h2
             className="text-4xl sm:text-5xl font-extrabold text-foreground tracking-tight mb-4"
-            style={{ fontFamily: "var(--font-syne)" }}
+            style={{ fontFamily: "var(--font-display)" }}
           >
-            Install in{" "}
+            {t("instHeadingPart1")}{" "}
             <span
               className="text-transparent bg-clip-text"
               style={{
@@ -60,11 +62,11 @@ export function InstallSection({ bookmarkletCode = "" }: InstallSectionProps) {
                   "linear-gradient(135deg, oklch(0.72 0.2 295), oklch(0.6 0.18 220))",
               }}
             >
-              one drag.
+              {t("instHeadingPart2")}
             </span>
           </h2>
           <p className="text-muted-foreground max-w-lg mx-auto">
-            No extension store, no permissions, no account. Just drag and drop.
+            {t("instSubheading")}
           </p>
         </div>
 
@@ -72,11 +74,10 @@ export function InstallSection({ bookmarkletCode = "" }: InstallSectionProps) {
         <div className="flex justify-center mb-14">
           <div className="text-center space-y-6">
             <p className="text-sm text-muted-foreground animate-bounce">
-              ↓ Drag this to your bookmarks bar ↓
+              {t("instDragBadge")}
             </p>
 
             {/* The actual bookmarklet link */}
-            {/* href is set via useEffect (useRef) to bypass React 19's javascript: URL block */}
             <a
               ref={linkRef}
               href="#"
@@ -93,14 +94,14 @@ export function InstallSection({ bookmarkletCode = "" }: InstallSectionProps) {
               onDragEnd={() => setDragging(false)}
               onClick={(e) => e.preventDefault()}
               title="Drag me to your bookmarks bar!"
-              style={{ fontFamily: "var(--font-syne)" }}
+              style={{ fontFamily: "var(--font-display)" }}
             >
               <span className="text-primary font-bold text-xl">⬡</span>
-              <span>Web Bookmarker</span>
+              <span>{t("instDragBtn")}</span>
             </a>
 
             <p className="text-xs text-muted-foreground">
-              Don&apos;t click — drag it to your bookmarks bar
+              {t("instDragHint")}
             </p>
           </div>
         </div>
@@ -141,7 +142,7 @@ export function InstallSection({ bookmarkletCode = "" }: InstallSectionProps) {
         <div className="mt-8 p-4 rounded-xl border border-yellow-500/20 bg-yellow-500/5 flex items-start gap-3">
           <span className="text-yellow-500 text-lg flex-shrink-0">⚠</span>
           <p className="text-xs text-muted-foreground leading-relaxed">
-            <strong className="text-foreground">Note:</strong> Some websites with strict Content Security Policy (CSP) may block the bookmarklet. On sites like GitHub or Google, certain features (like ZIP download) may be limited due to CORS restrictions — this is a browser security limitation, not a bug.
+            <strong className="text-foreground">{t("instNote")}</strong> {t("instWarning")}
           </p>
         </div>
       </div>

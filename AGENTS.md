@@ -1,6 +1,6 @@
-# Guía de Desarrollo y Buenas Prácticas - Web Bookmarker
+# Guía de Desarrollo y Buenas Prácticas - Webexa
 
-Este archivo contiene las directrices, estándares y mejores prácticas de desarrollo para que los agentes y programadores mantengan la consistencia en el proyecto **Web Bookmarker**.
+Este archivo contiene las directrices, estándares y mejores prácticas de desarrollo para que los agentes y programadores mantengan la consistencia en el proyecto **Webexa**.
 
 ---
 
@@ -101,7 +101,7 @@ El proyecto cuenta con habilidades (skills) especializadas en la carpeta [.agent
 
 ---
 
-## 🌐 Landing Page — Web Bookmarker
+## 🌐 Landing Page — Webexa
 
 La landing page principal está implementada en `src/app/page.tsx` y compuesta por los siguientes componentes en `src/components/shared/`:
 
@@ -109,8 +109,8 @@ La landing page principal está implementada en `src/app/page.tsx` y compuesta p
 
 | Componente | Ruta | Descripción |
 |---|---|---|
-| `Navbar` | `shared/Navbar.tsx` | Navbar sticky con logo, navegación, selector EN/ES y CTA animado |
-| `HeroSection` | `shared/HeroSection.tsx` | Hero con tagline, CTAs y mockup animado del bookmarklet |
+| `Navbar` | `shared/Navbar.tsx` | Navbar sticky con logo, enlaces de navegación y selector de idioma en formato de botón pill interactivo |
+| `HeroSection` | `shared/HeroSection.tsx` | Hero minimalista de alto contraste con tagline, CTAs y mockup animado |
 | `BookmarkletMockup` | `shared/BookmarkletMockup.tsx` | UI interactiva que simula el popup del bookmarklet (tabs funcionales) |
 | `HowItWorks` | `shared/HowItWorks.tsx` | 3 pasos de instalación con Cards de Shadcn |
 | `FeatureImages` | `shared/FeatureImages.tsx` | Demo interactiva de la tab de imágenes (grid seleccionable + toolbar) |
@@ -133,10 +133,10 @@ El script incrustado en `InstallSection.tsx` como `BOOKMARKLET_CODE` es la versi
 ### Diseño Visual
 
 - **Tema:** Dark mode nativo (no requiere `.dark` class toggle)
-- **Fuentes:** `Syne` (display/headings) + `DM Sans` (body) — cargadas con `next/font/google`
+- **Fuentes:** `Outfit` (display/headings) + `DM Sans` (body) — cargadas con `next/font/google`
 - **Paleta:** Navy profundo (#0f0f13 equiv.) + acento violeta (`oklch(0.72 0.2 295)`) + cyan accent
-- **Animaciones:** `animate-float` (mockup hero), `animate-reveal-up` (entradas staggered), `animate-pulse-glow` (CTAs)
-- **Fondo:** Mesh gradient con orbs radiales en secciones hero
+- **Animaciones:** `animate-float` (mockup hero) y `animate-reveal-up` (entradas staggered)
+- **Fondo:** Fondo oscuro sólido y de alto contraste, eliminando cualquier glow de fondo genérico u orbs radiales para dar un aspecto minimalista y profesional.
 
 ### Notas de Compatibilidad
 

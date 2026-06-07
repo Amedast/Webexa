@@ -1,12 +1,17 @@
-import { Separator } from "@/components/ui/separator";
+"use client";
 
-const FOOTER_LINKS = [
-  { label: "GitHub", href: "https://github.com" },
-  { label: "Privacy", href: "#" },
-  { label: "Terms", href: "#" },
-];
+import { Separator } from "@/components/ui/separator";
+import { useLanguage } from "@/lib/LanguageContext";
 
 export function Footer() {
+  const { t } = useLanguage();
+
+  const FOOTER_LINKS = [
+    { label: "GitHub", href: "https://github.com" },
+    { label: t("footLinksPrivacy"), href: "#" },
+    { label: t("footLinksTerms"), href: "#" },
+  ];
+
   return (
     <footer className="border-t border-border/40 mt-20">
       <div className="max-w-6xl mx-auto px-6 py-10 flex flex-col sm:flex-row items-center justify-between gap-4">
@@ -14,12 +19,12 @@ export function Footer() {
           <span className="text-primary font-bold">⬡</span>
           <span
             className="text-sm font-semibold text-foreground"
-            style={{ fontFamily: "var(--font-syne)" }}
+            style={{ fontFamily: "var(--font-display)" }}
           >
-            Web Bookmarker
+            Webexa
           </span>
           <span className="text-muted-foreground text-sm">
-            — Extract anything from the web.
+            {t("footTagline")}
           </span>
         </div>
 
@@ -41,8 +46,8 @@ export function Footer() {
           ))}
         </div>
 
-        <p className="text-xs text-muted-foreground">
-          © {new Date().getFullYear()} Web Bookmarker. MIT License.
+        <p className="text-xs text-muted-foreground font-mono">
+          © {new Date().getFullYear()} Webexa. {t("footLicense")}
         </p>
       </div>
     </footer>

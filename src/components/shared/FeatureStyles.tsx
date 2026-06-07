@@ -3,6 +3,9 @@
 import { useState } from "react";
 import { Badge } from "@/components/ui/badge";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
+import { useLanguage } from "@/lib/LanguageContext";
+import { Palette } from "lucide-react";
+
 
 const MOCK_COLORS = [
   { hex: "#6D28D9", label: "Primary" },
@@ -19,7 +22,7 @@ const MOCK_COLORS = [
 
 const MOCK_FONTS = [
   {
-    name: "Syne",
+    name: "Outfit",
     role: "Headings",
     sizes: ["48px", "32px", "24px"],
     preview: "The quick brown fox",
@@ -43,6 +46,7 @@ const MOCK_FONTS = [
 
 export function FeatureStyles() {
   const [copied, setCopied] = useState<string | null>(null);
+  const { t } = useLanguage();
 
   const handleCopy = (hex: string) => {
     navigator.clipboard.writeText(hex).catch(() => {});
@@ -59,14 +63,14 @@ export function FeatureStyles() {
             {/* Colors */}
             <div>
               <div className="flex items-center justify-between mb-3">
-                <p className="text-[10px] text-white/40 font-bold uppercase tracking-widest">
-                  Color palette · {MOCK_COLORS.length} extracted
+                <p className="text-[10px] text-white/40 font-bold uppercase tracking-widest font-mono">
+                  {t("featStyleColorsExtracted", { count: MOCK_COLORS.length })}
                 </p>
                 <button
                   onClick={() => handleCopy(MOCK_COLORS.map((c) => c.hex).join(", "))}
-                  className="text-[11px] px-2.5 py-1 rounded-lg bg-white/8 text-white/50 hover:text-white/80 border border-white/8 transition-colors"
+                  className="text-[11px] px-2.5 py-1 rounded-lg bg-white/8 text-white/50 hover:text-white/80 border border-white/8 transition-colors font-semibold"
                 >
-                  {copied ? "✓ Copied!" : "Copy all"}
+                  {copied ? t("featStyleCopied") : t("featStyleCopyAll")}
                 </button>
               </div>
               <div className="flex flex-wrap gap-3">
@@ -76,17 +80,17 @@ export function FeatureStyles() {
                       className="group flex flex-col items-center gap-1.5 transition-transform hover:scale-110 cursor-pointer bg-transparent border-0 p-0"
                       onClick={() => handleCopy(c.hex)}
                     >
-                        <div
-                          className="w-10 h-10 rounded-xl border border-white/10 shadow-md relative overflow-hidden"
-                          style={{ background: c.hex }}
-                        >
-                          {copied === c.hex && (
-                            <div className="absolute inset-0 bg-black/40 flex items-center justify-center text-white text-xs">
-                              ✓
-                            </div>
-                          )}
-                        </div>
-                        <span className="text-[9px] text-white/30 font-mono">{c.label}</span>
+                      <div
+                        className="w-10 h-10 rounded-xl border border-white/10 shadow-md relative overflow-hidden"
+                        style={{ background: c.hex }}
+                      >
+                        {copied === c.hex && (
+                          <div className="absolute inset-0 bg-black/40 flex items-center justify-center text-white text-xs">
+                            ✓
+                          </div>
+                        )}
+                      </div>
+                      <span className="text-[9px] text-white/30 font-mono">{c.label}</span>
                     </TooltipTrigger>
                     <TooltipContent side="top" className="text-xs">
                       {c.hex} · Click to copy
@@ -101,8 +105,8 @@ export function FeatureStyles() {
 
             {/* Fonts */}
             <div>
-              <p className="text-[10px] text-white/40 font-bold uppercase tracking-widest mb-3">
-                Typography · {MOCK_FONTS.length} families
+              <p className="text-[10px] text-white/40 font-bold uppercase tracking-widest mb-3 font-mono">
+                {t("featStyleFontsFamilies", { count: MOCK_FONTS.length })}
               </p>
               <div className="space-y-3">
                 {MOCK_FONTS.map((f) => (
@@ -113,17 +117,17 @@ export function FeatureStyles() {
                     <div className="flex items-center justify-between mb-2">
                       <div className="flex items-center gap-2">
                         <span className="text-[11px] text-white/50 font-mono">{f.name}</span>
-                        <Badge variant="secondary" className="text-[9px] px-1.5 py-0">
+                        <Badge variant="secondary" className="text-[9px] px-1.5 py-0 font-medium">
                           {f.role}
                         </Badge>
                       </div>
-                      <span className="text-[10px] text-white/30">
+                      <span className="text-[10px] text-white/30 font-mono">
                         {f.sizes.join(" / ")}
                       </span>
                     </div>
                     <p
                       className="text-lg text-white/80 leading-tight"
-                      style={{ fontFamily: f.name, fontWeight: f.weight }}
+                      style={{ fontFamily: f.name === "Outfit" ? "var(--font-display)" : f.name, fontWeight: f.weight }}
                     >
                       {f.preview}
                     </p>
@@ -137,15 +141,16 @@ export function FeatureStyles() {
           <div className="space-y-6 order-1 lg:order-2">
             <Badge
               variant="secondary"
-              className="border border-primary/30 bg-primary/10 text-primary text-xs"
+              className="border border-primary/30 bg-primary/10 text-primary text-xs inline-flex items-center gap-1.5"
             >
-              🎨 Style Extractor
+              <Palette className="w-3.5 h-3.5" />
+              <span>{t("featStyleBadge")}</span>
             </Badge>
             <h2
               className="text-4xl sm:text-5xl font-extrabold text-foreground tracking-tight leading-tight"
-              style={{ fontFamily: "var(--font-syne)" }}
+              style={{ fontFamily: "var(--font-display)" }}
             >
-              Steal the style,{" "}
+              {t("featStyleHeadingPart1")}{" "}
               <span
                 className="text-transparent bg-clip-text"
                 style={{
@@ -153,19 +158,19 @@ export function FeatureStyles() {
                     "linear-gradient(135deg, oklch(0.72 0.2 295), oklch(0.6 0.18 220))",
                 }}
               >
-                ethically.
+                {t("featStyleHeadingPart2")}
               </span>
             </h2>
             <p className="text-muted-foreground leading-relaxed">
-              Instantly extract the complete design system of any website. Get all colors used in the DOM, organized by frequency, and discover every font family with live previews.
+              {t("featStyleDesc")}
             </p>
 
             <ul className="space-y-3 text-sm text-muted-foreground">
               {[
-                "Color palette extracted from computed DOM styles",
-                "Click any swatch to copy the HEX value",
-                "Copy the entire palette to clipboard at once",
-                "Font families with role detection (heading, body, code)",
+                t("featStyleBullet1"),
+                t("featStyleBullet2"),
+                t("featStyleBullet3"),
+                t("featStyleBullet4"),
               ].map((item) => (
                 <li key={item} className="flex items-start gap-3">
                   <span className="w-5 h-5 rounded-full bg-primary/15 border border-primary/30 flex items-center justify-center text-[10px] text-primary flex-shrink-0 mt-0.5">

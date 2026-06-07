@@ -2,35 +2,19 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { buttonVariants } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
-
-const ES_LABELS = {
-  features: "Características",
-  howItWorks: "Cómo funciona",
-  install: "Instalar",
-  installNow: "Instalar ahora",
-};
-
-const EN_LABELS = {
-  features: "Features",
-  howItWorks: "How it works",
-  install: "Install",
-  installNow: "Install now",
-};
+import { useLanguage } from "@/lib/LanguageContext";
 
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
-  const [lang, setLang] = useState<"en" | "es">("en");
+  const { language, setLanguage, t } = useLanguage();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
-
-  const labels = lang === "en" ? EN_LABELS : ES_LABELS;
 
   return (
     <header
@@ -49,9 +33,9 @@ export function Navbar() {
           </div>
           <span
             className="font-display font-700 text-foreground tracking-tight"
-            style={{ fontFamily: "var(--font-syne)" }}
+            style={{ fontFamily: "var(--font-display)" }}
           >
-            Web Bookmarker
+            Webexa
           </span>
           <Badge variant="secondary" className="text-[10px] px-1.5 py-0 hidden sm:inline-flex">
             Beta
@@ -61,14 +45,14 @@ export function Navbar() {
         {/* Nav links */}
         <nav className="hidden md:flex items-center gap-1">
           {[
-            { href: "#features", label: labels.features },
-            { href: "#how-it-works", label: labels.howItWorks },
-            { href: "#install", label: labels.install },
+            { href: "#features", label: t("navFeatures") },
+            { href: "#how-it-works", label: t("navHowItWorks") },
+            { href: "#install", label: t("navInstall") },
           ].map((link) => (
             <Link
               key={link.href}
               href={link.href}
-              className="px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground rounded-md hover:bg-white/5 transition-all duration-200"
+              className="px-3.5 py-1.5 text-sm font-semibold text-foreground/80 hover:text-foreground rounded-md hover:bg-white/5 transition-all duration-200"
             >
               {link.label}
             </Link>
@@ -79,24 +63,16 @@ export function Navbar() {
         <div className="flex items-center gap-3">
           {/* Language toggle */}
           <button
-            onClick={() => setLang((l) => (l === "en" ? "es" : "en"))}
-            className="text-xs text-muted-foreground hover:text-foreground transition-colors px-2 py-1 rounded-md hover:bg-white/5 font-mono tracking-widest"
+            onClick={() => setLanguage(language === "en" ? "es" : "en")}
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-border bg-white/5 hover:bg-white/10 text-xs font-semibold text-foreground transition-all cursor-pointer shadow-sm hover:scale-105 active:scale-95"
             aria-label="Toggle language"
           >
-            {lang === "en" ? "EN" : "ES"}
+            <span>🌐</span>
+            <span>{language === "en" ? "EN" : "ES"}</span>
           </button>
-
-          <Link
-            href="#install"
-            className={cn(
-              buttonVariants({ size: "sm" }),
-              "animate-pulse-glow rounded-full px-5 font-semibold text-xs"
-            )}
-          >
-            {labels.installNow} →
-          </Link>
         </div>
       </div>
     </header>
   );
 }
+
