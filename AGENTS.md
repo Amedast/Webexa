@@ -41,6 +41,7 @@ src/
 - **Co-locación:** Mantén los componentes específicos de una ruta cerca de su página o en `src/components/shared/` si son reutilizables en múltiples vistas.
 
 ### 2. Estilos con Tailwind CSS v4 y Shadcn
+- **Obligatoriedad de Shadcn:** Es estrictamente obligatorio utilizar los componentes de **Shadcn UI** para cualquier elemento de interfaz de usuario soportado por la librería (como botones, diálogos, formularios, inputs, modales, etc.). No se deben recrear ni utilizar elementos HTML básicos o librerías externas alternativas si existe un componente equivalente en Shadcn UI.
 - Usa las clases de utilidad de Tailwind CSS.
 - Para unir clases condicionalmente, utiliza la función `cn` exportada desde `@/lib/utils`.
   ```tsx
@@ -70,6 +71,18 @@ src/
 - **Componentes:** PascalCase (ej. `BookmarkCard.tsx`).
 - **Funciones y Variables:** camelCase (ej. `getBookmarkData`).
 - **Archivos de Utilidades/Hooks:** camelCase (ej. `useLocalStorage.ts`, `auth.ts`).
+
+---
+
+## 🛠️ Habilidades de Agente (Skills)
+
+El proyecto cuenta con habilidades (skills) especializadas en la carpeta [.agents/skills](file:///c:/Users/alexm/Desktop/Proyectos/web-bookmarker/.agents/skills) que los agentes deben utilizar y referenciar de forma obligatoria según la tarea:
+
+- **Búsqueda de Skills ([find-skills](file:///c:/Users/alexm/Desktop/Proyectos/web-bookmarker/.agents/skills/find-skills/SKILL.md)):** Se debe utilizar para buscar o instalar nuevas habilidades cuando se requiera funcionalidad extendida.
+- **Diseño Frontend ([frontend-design](file:///c:/Users/alexm/Desktop/Proyectos/web-bookmarker/.agents/skills/frontend-design/SKILL.md)):** Instrucciones para crear interfaces de usuario premium y de nivel de producción que superen la estética genérica de la IA.
+- **Creador de Skills ([skill-creator](file:///c:/Users/alexm/Desktop/Proyectos/web-bookmarker/.agents/skills/skill-creator/SKILL.md)):** Directrices para crear, optimizar y medir el rendimiento de nuevas habilidades.
+- **Mejores Prácticas de React/Vercel ([vercel-react-best-practices](file:///c:/Users/alexm/Desktop/Proyectos/web-bookmarker/.agents/skills/vercel-react-best-practices/SKILL.md)):** Normas de rendimiento y renderizado para Next.js y React 19 basadas en la ingeniería de Vercel.
+- **Directrices de Diseño Web ([web-design-guidelines](file:///c:/Users/alexm/Desktop/Proyectos/web-bookmarker/.agents/skills/web-design-guidelines/SKILL.md)):** Auditoría de UX, accesibilidad y cumplimiento de las directrices de interfaz de usuario.
 
 ---
 
