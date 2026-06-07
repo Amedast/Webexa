@@ -5,6 +5,8 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import { useLanguage } from "@/lib/LanguageContext";
+import { Logo } from "./Logo";
+
 
 interface InstallSectionProps {
   bookmarkletCode?: string;
@@ -96,7 +98,7 @@ export function InstallSection({ bookmarkletCode = "" }: InstallSectionProps) {
               title="Drag me to your bookmarks bar!"
               style={{ fontFamily: "var(--font-display)" }}
             >
-              <span className="text-primary font-bold text-xl">⬡</span>
+              <Logo className="w-5 h-5 text-primary" />
               <span>{t("instDragBtn")}</span>
             </a>
 

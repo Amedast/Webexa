@@ -2,6 +2,7 @@
 
 import { Separator } from "@/components/ui/separator";
 import { useLanguage } from "@/lib/LanguageContext";
+import { Logo } from "./Logo";
 
 export function Footer() {
   const { t } = useLanguage();
@@ -16,7 +17,7 @@ export function Footer() {
     <footer className="border-t border-border/40 mt-20">
       <div className="max-w-6xl mx-auto px-6 py-10 flex flex-col sm:flex-row items-center justify-between gap-4">
         <div className="flex items-center gap-2">
-          <span className="text-primary font-bold">⬡</span>
+          <Logo className="w-5 h-5 text-primary" />
           <span
             className="text-sm font-semibold text-foreground"
             style={{ fontFamily: "var(--font-display)" }}

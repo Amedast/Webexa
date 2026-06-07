@@ -409,7 +409,7 @@
 
   popup.innerHTML = `
     <div class="__wb_header">
-      <span class="__wb_logo">⬡ Webexa</span>
+      <span class="__wb_logo" style="display: flex; align-items: center; gap: 6px;"><svg width="15" height="15" viewBox="0 0 100 100" fill="currentColor" style="color: #a78bfa; display: inline-block; vertical-align: middle;"><path fill-rule="evenodd" clip-rule="evenodd" d="M 50,0 L 93.3,25 L 93.3,75 L 50,100 L 6.7,75 L 6.7,25 Z M 50,16 L 79.4,33 L 79.4,67 L 50,84 L 20.6,67 L 20.6,33 Z M 50,33 L 64.7,41.5 L 64.7,58.5 L 50,67 L 35.3,58.5 L 35.3,41.5 Z" /></svg>Webexa</span>
       <button class="__wb_close" id="__wb_close_btn">×</button>
     </div>
     <div class="__wb_tabs">

@@ -6,6 +6,8 @@ import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
 import { useLanguage } from "@/lib/LanguageContext";
 import { ImageIcon, Palette } from "lucide-react";
+import { Logo } from "./Logo";
+
 
 
 // ─── Mock data for the visual demo ──────────────────────────────────────────
@@ -92,7 +94,7 @@ export function BookmarkletMockup() {
       {/* Title bar */}
       <div className="flex items-center justify-between px-4 py-3 border-b border-white/8 select-none">
         <div className="flex items-center gap-2">
-          <span className="text-primary font-bold text-sm">⬡</span>
+          <Logo className="w-3.5 h-3.5 text-primary" />
           <span
             className="text-sm font-semibold text-white/90"
             style={{ fontFamily: "var(--font-display)" }}

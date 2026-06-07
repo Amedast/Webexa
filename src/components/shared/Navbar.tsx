@@ -5,6 +5,8 @@ import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
 import { useLanguage } from "@/lib/LanguageContext";
+import { Logo } from "./Logo";
+
 
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -28,9 +30,7 @@ export function Navbar() {
       <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2 group">
-          <div className="w-7 h-7 rounded-lg bg-primary flex items-center justify-center text-primary-foreground text-sm font-bold transition-transform group-hover:scale-110">
-            ⬡
-          </div>
+          <Logo className="w-6 h-6 text-primary transition-transform group-hover:scale-110" />
           <span
             className="font-display font-700 text-foreground tracking-tight"
             style={{ fontFamily: "var(--font-display)" }}
