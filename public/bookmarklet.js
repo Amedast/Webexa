@@ -73,6 +73,10 @@
       background: rgba(255,255,255,0.08); color: #ccc;
       border: 1px solid rgba(255,255,255,0.1); outline: none; cursor: pointer;
     }
+    #${POPUP_ID} .__wb_select option {
+      background: #0f0f13;
+      color: #ccc;
+    }
     #${POPUP_ID} .__wb_select:focus { border-color: #a78bfa; }
     #${POPUP_ID} .__wb_img_grid {
       display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 8px;
