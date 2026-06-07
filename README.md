@@ -1,36 +1,92 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# ⬡ Webexa — Web Examiner
 
-## Getting Started
+Webexa is an elegant, minimalist browser utility designed to extract visual assets and design systems from any webpage in a single click. It operates 100% locally in your browser, requiring no extensions, no accounts, and collecting absolutely zero user data.
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## ✨ Features
+
+- **🖼️ Image Extractor:** Automatically detects all page images (including inline `<img>` tags, CSS `background-image` styles, and Open Graph metadata). Preview them in a responsive grid and download individually or packaged in a `.zip` archive.
+- **🎨 Style Extractor:** Instantly extracts the website's color palette (frequency-sorted, with one-click HEX copying) and typography (arranged by headings, body text, and code with live previews).
+- **🔒 Privacy First:** 100% local execution. Webexa does not access, use, or store user accounts, browsing history, cookies, or personal files.
+- **🚀 Zero Installation:** Runs as a simple browser bookmarklet. Drag the button to your bookmark bar and use it anywhere.
+- **🌐 Bilingual Support:** Native interface support in both English and Spanish.
+
+---
+
+## 🛠️ Technology Stack
+
+- **Framework:** Next.js (App Router, React 19)
+- **Language:** TypeScript
+- **Styling:** Tailwind CSS v4
+- **Components:** Shadcn UI (Radix Primitives)
+- **Icons:** Lucide React
+
+---
+
+## 📂 Project Structure
+
+```text
+src/
+├── app/                  # Next.js App Router (Layouts, pages, custom favicon)
+│   ├── globals.css       # Tailwind CSS variables & global styles
+│   ├── layout.tsx        # Base wrapper configuration
+│   └── page.tsx          # Landing page routing entrypoint
+├── components/           # React components
+│   ├── ui/               # Core Shadcn UI custom components
+│   └── shared/           # Webexa shared features (mockups, sections, logo)
+├── lib/                  # Helper utilities and custom contexts
+│   ├── LanguageContext   # Localization state and dictionary loader
+│   ├── translations      # Dict translation definitions (EN/ES)
+│   └── utils            # Utility helpers (cn class merger)
+public/
+├── bookmarklet.js        # Source unminified bookmarklet injector script
+└── bookmarklet.min.txt   # Compiled compact bookmarklet code for URL deployment
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🚀 Getting Started
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Prerequisites
 
-## Learn More
+- Node.js (v18.x or higher recommended)
+- npm (installed with Node.js)
 
-To learn more about Next.js, take a look at the following resources:
+### Installation
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/Amedast/Webexa.git
+   cd Webexa
+   ```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
 
-## Deploy on Vercel
+3. Run the local development server:
+   ```bash
+   npm run dev
+   ```
+   Open [http://localhost:3000](http://localhost:3000) in your browser to view the application.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Build and Deploy
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+To create an optimized production build of the Next.js landing page:
+```bash
+npm run build
+```
+
+---
+
+## ⚡ Minifying the Bookmarklet Injector
+
+The source code for the browser tool injection resides in `public/bookmarklet.js`. If you make modifications to the injection script, you should compile and minify it into `public/bookmarklet.min.txt` as a single line starting with `javascript:`.
+
+---
+
+## 📄 License
+
+This project is licensed under the [MIT License](LICENSE) — feel free to use and adapt it for your own needs.

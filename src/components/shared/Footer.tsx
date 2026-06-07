@@ -30,7 +30,7 @@ export function Footer() {
 
         <div className="flex items-center gap-4 text-sm text-muted-foreground">
           <a
-            href="https://github.com"
+            href="https://github.com/Amedast/Webexa"
             className="hover:text-foreground transition-colors font-semibold"
             target="_blank"
             rel="noopener noreferrer"
