@@ -163,15 +163,12 @@ export function BookmarkletMockup() {
                   selectedImages.size > 0 ? "bg-primary text-white hover:bg-primary/80 cursor-pointer" : "bg-white/5 text-white/30 cursor-not-allowed",
                 )}
               >
-                {t("featImgDownload")} ({selectedImages.size})
+                {t("featImgDownloadSelected")} ({selectedImages.size})
               </button>
               <button
-                className={cn(
-                  "text-[11px] px-3 py-1.5 rounded-lg font-semibold transition-all border border-primary/20",
-                  selectedImages.size > 0 ? "bg-primary text-white hover:bg-primary/80 cursor-pointer" : "bg-white/5 text-white/30 cursor-not-allowed",
-                )}
+                className="text-[11px] px-3 py-1.5 rounded-lg font-semibold transition-all border border-white/8 bg-white/8 text-white/60 hover:bg-white/12 hover:text-white/90 cursor-pointer"
               >
-                {t("featImgZip")}
+                {t("featImgDownloadAll")}
               </button>
             </div>
 

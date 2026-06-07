@@ -47,8 +47,8 @@ export const translations = {
     featImgSelectAll: "Select all",
     featImgClear: "Clear",
     featImgOriginal: "Original",
-    featImgDownload: "Download",
-    featImgZip: "ZIP",
+    featImgDownloadSelected: "Download Selected",
+    featImgDownloadAll: "Download All",
     featImgFound: "images found",
     
     // Feature Styles
@@ -168,8 +168,8 @@ export const translations = {
     featImgSelectAll: "Seleccionar todo",
     featImgClear: "Limpiar",
     featImgOriginal: "Original",
-    featImgDownload: "Descargar",
-    featImgZip: "ZIP",
+    featImgDownloadSelected: "Descargar Selección",
+    featImgDownloadAll: "Descargar Todo",
     featImgFound: "imágenes encontradas",
     
     // Feature Styles

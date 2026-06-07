@@ -121,16 +121,12 @@ export function FeatureImages() {
                   selected.size > 0 ? "bg-primary text-white hover:bg-primary/80 cursor-pointer" : "bg-white/5 text-white/30 cursor-not-allowed"
                 )}
               >
-                {t("featImgDownload")} ({selected.size})
+                {t("featImgDownloadSelected")} ({selected.size})
               </button>
               <button
-                disabled={selected.size === 0}
-                className={cn(
-                  "text-[11px] px-3 py-1.5 rounded-lg font-semibold transition-all",
-                  selected.size > 0 ? "bg-primary text-white hover:bg-primary/80 cursor-pointer" : "bg-white/5 text-white/30 cursor-not-allowed"
-                )}
+                className="text-[11px] px-3 py-1.5 rounded-lg font-semibold transition-all bg-white/8 text-white/60 hover:bg-white/12 hover:text-white/90 cursor-pointer border border-white/8"
               >
-                {t("featImgZip")}
+                {t("featImgDownloadAll")}
               </button>
               <span className="ml-auto text-[10px] text-white/30 self-center font-mono">
                 {MOCK_IMAGES.length} {t("featImgFound")}

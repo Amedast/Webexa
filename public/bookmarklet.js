@@ -2,10 +2,10 @@
 (function () {
   "use strict";
 
-
   // ─── Constants ──────────────────────────────────────────────────────────────
   var POPUP_ID = "__wb_popup__";
-  var JSZIP_CDN = "https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js";
+  var JSZIP_CDN =
+    "https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js";
 
   // ─── Remove existing popup if open ──────────────────────────────────────────
   var existing = document.getElementById(POPUP_ID);
@@ -113,7 +113,7 @@
     #${POPUP_ID} .__wb_font_name { font-size: 11px; color: #666; margin-bottom: 4px; }
     #${POPUP_ID} .__wb_font_preview { font-size: 22px; color: #e8e8f0; }
     #${POPUP_ID} .__wb_section_title { font-size: 11px; font-weight: 600; color: #777; margin: 0 0 10px; text-transform: uppercase; letter-spacing: 0.8px; }
-    #${POPUP_ID} .__wb_toast {
+#${POPUP_ID} .__wb_toast {
       position: absolute; bottom: 16px; left: 50%; transform: translateX(-50%);
       background: #a78bfa; color: #fff; padding: 8px 16px; border-radius: 20px;
       font-size: 12px; font-weight: 500; pointer-events: none;
@@ -121,6 +121,29 @@
     }
     @keyframes __wb_toast_in { from { opacity: 0; transform: translateX(-50%) translateY(8px); } to { opacity: 1; transform: translateX(-50%) translateY(0); } }
     @keyframes __wb_toast_out { to { opacity: 0; transform: translateX(-50%) translateY(8px); } }
+
+    /* CORS Overlay */
+    #${POPUP_ID} .__wb_overlay {
+      position: absolute; inset: 0;
+      background: #0f0f13;
+      display: flex; flex-direction: column;
+      padding: 18px; z-index: 100;
+      animation: __wb_fade_in 0.2s ease-out;
+    }
+    @keyframes __wb_fade_in { from { opacity: 0; } to { opacity: 1; } }
+    #${POPUP_ID} .__wb_overlay_title { font-size: 15px; font-weight: 700; color: #f87171; margin-bottom: 10px; display: flex; align-items: center; gap: 6px; }
+    #${POPUP_ID} .__wb_overlay_text { font-size: 12px; color: #9ca3af; margin-bottom: 12px; line-height: 1.5; text-align: left; }
+    #${POPUP_ID} .__wb_overlay_list {
+      flex: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px;
+      padding-right: 4px;
+    }
+    #${POPUP_ID} .__wb_overlay_item {
+      display: flex; align-items: center; gap: 10px; padding: 8px;
+      background: rgba(255,255,255,0.03); border-radius: 8px; border: 1px solid rgba(255,255,255,0.06);
+    }
+    #${POPUP_ID} .__wb_overlay_thumb { width: 36px; height: 36px; object-fit: cover; border-radius: 4px; background: #1a1a24; flex-shrink: 0; }
+    #${POPUP_ID} .__wb_overlay_url { font-size: 11px; color: #d1d5db; text-overflow: ellipsis; overflow: hidden; white-space: nowrap; flex: 1; text-align: left; }
+    #${POPUP_ID} .__wb_overlay_btn-row { display: flex; gap: 10px; flex-shrink: 0; }
   `;
 
   // ─── Inject styles ────────────────────────────────────────────────────────────
@@ -144,7 +167,9 @@
     el.className = "__wb_toast";
     el.textContent = msg;
     popup.appendChild(el);
-    setTimeout(function () { el.remove(); }, 2000);
+    setTimeout(function () {
+      el.remove();
+    }, 2000);
   }
 
   function loadScript(src, cb) {
@@ -169,10 +194,11 @@
       var bg = window.getComputedStyle(el).backgroundImage;
       if (bg && bg !== "none") {
         var match = bg.match(/url\(["']?([^"')]+)["']?\)/g);
-        if (match) match.forEach(function (m) {
-          var u = m.replace(/^url\(["']?/, "").replace(/["']?\)$/, "");
-          if (u && !u.startsWith("data:")) urls.add(u);
-        });
+        if (match)
+          match.forEach(function (m) {
+            var u = m.replace(/^url\(["']?/, "").replace(/["']?\)$/, "");
+            if (u && !u.startsWith("data:")) urls.add(u);
+          });
       }
     });
 
@@ -180,11 +206,17 @@
     var ogImage = document.querySelector('meta[property="og:image"]');
     if (ogImage && ogImage.content) urls.add(ogImage.content);
 
-    return Array.from(urls).filter(function (u) {
-      return u.startsWith("http") || u.startsWith("//") || u.startsWith("/");
-    }).map(function (u) {
-      try { return new URL(u, location.href).href; } catch (_e) { return u; }
-    });
+    return Array.from(urls)
+      .filter(function (u) {
+        return u.startsWith("http") || u.startsWith("//") || u.startsWith("/");
+      })
+      .map(function (u) {
+        try {
+          return new URL(u, location.href).href;
+        } catch (_e) {
+          return u;
+        }
+      });
   }
 
   // ─── Style extraction ─────────────────────────────────────────────────────────
@@ -206,9 +238,13 @@
     });
 
     var colors = Object.entries(colorMap)
-      .sort(function (a, b) { return b[1] - a[1]; })
+      .sort(function (a, b) {
+        return b[1] - a[1];
+      })
       .slice(0, 24)
-      .map(function (e) { return e[0]; });
+      .map(function (e) {
+        return e[0];
+      });
 
     return { colors: colors, fonts: Array.from(fontSet).slice(0, 10) };
   }
@@ -217,9 +253,15 @@
   function rgbToHex(rgb) {
     var m = rgb.match(/\d+/g);
     if (!m || m.length < 3) return rgb;
-    return "#" + [m[0], m[1], m[2]].map(function (x) {
-      return parseInt(x).toString(16).padStart(2, "0");
-    }).join("").toUpperCase();
+    return (
+      "#" +
+      [m[0], m[1], m[2]]
+        .map(function (x) {
+          return parseInt(x).toString(16).padStart(2, "0");
+        })
+        .join("")
+        .toUpperCase()
+    );
   }
 
   // ─── Render functions ─────────────────────────────────────────────────────────
@@ -240,14 +282,15 @@
         <span class="__wb_count" id="__wb_sel_count">0 selected</span>
       </div>
       <div class="__wb_toolbar">
-        <button class="__wb_btn __wb_btn-primary" id="__wb_dl_sel" disabled>⬇ Download selected</button>
-        <button class="__wb_btn __wb_btn-primary" id="__wb_dl_zip" disabled>📦 Download ZIP</button>
+        <button class="__wb_btn __wb_btn-primary" id="__wb_dl_sel" disabled>⬇ Download Selected (ZIP)</button>
+        <button class="__wb_btn __wb_btn-primary" id="__wb_dl_all">⬇ Download All (ZIP)</button>
       </div>
       <div class="__wb_img_grid" id="__wb_img_grid"></div>
     `;
 
     if (imgs.length === 0) {
-      body.querySelector(".__wb_img_grid").innerHTML = '<p class="__wb_empty">No images found on this page.</p>';
+      body.querySelector(".__wb_img_grid").innerHTML =
+        '<p class="__wb_empty">No images found on this page.</p>';
     } else {
       var grid = body.querySelector(".__wb_img_grid");
       imgs.forEach(function (src, i) {
@@ -273,19 +316,24 @@
       var count = state.selected.size;
       body.querySelector("#__wb_sel_count").textContent = count + " selected";
       body.querySelector("#__wb_dl_sel").disabled = count === 0;
-      body.querySelector("#__wb_dl_zip").disabled = count === 0;
     }
 
     body.querySelector("#__wb_sel_all").addEventListener("click", function () {
       state.selected.clear();
-      imgs.forEach(function (s) { state.selected.add(s); });
-      body.querySelectorAll(".__wb_img_card").forEach(function (c) { c.classList.add("__wb_selected"); });
+      imgs.forEach(function (s) {
+        state.selected.add(s);
+      });
+      body.querySelectorAll(".__wb_img_card").forEach(function (c) {
+        c.classList.add("__wb_selected");
+      });
       updateImageToolbar();
     });
 
     body.querySelector("#__wb_sel_none").addEventListener("click", function () {
       state.selected.clear();
-      body.querySelectorAll(".__wb_img_card").forEach(function (c) { c.classList.remove("__wb_selected"); });
+      body.querySelectorAll(".__wb_img_card").forEach(function (c) {
+        c.classList.remove("__wb_selected");
+      });
       updateImageToolbar();
     });
 
@@ -294,63 +342,183 @@
     });
 
     body.querySelector("#__wb_dl_sel").addEventListener("click", function () {
-      downloadSelected(false);
+      performDownloads("selected");
     });
 
-    body.querySelector("#__wb_dl_zip").addEventListener("click", function () {
-      downloadSelected(true);
+    body.querySelector("#__wb_dl_all").addEventListener("click", function () {
+      performDownloads("all");
     });
   }
 
-  function downloadSelected(asZip) {
-    var urls = Array.from(state.selected);
+  function triggerDownload(blob, filename) {
+    var a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    setTimeout(function () {
+      a.remove();
+      URL.revokeObjectURL(a.href);
+    }, 1000);
+  }
+
+  function getBlobAndConvert(url, targetFormat) {
+    return fetch(url)
+      .then(function (r) {
+        if (!r.ok) throw new Error("Fetch failed");
+        return r.blob();
+      })
+      .then(function (blob) {
+        var parts = url.split("?")[0].split(".");
+        var baseExt =
+          parts.length > 1 ? parts.pop().toLowerCase().slice(0, 5) : "jpg";
+        if (!/^[a-z0-9]+$/.test(baseExt)) baseExt = "jpg";
+
+        if (targetFormat === "original") {
+          return { blob: blob, ext: baseExt };
+        }
+        return new Promise(function (resolve) {
+          var img = new Image();
+          img.crossOrigin = "anonymous";
+          img.onload = function () {
+            var canvas = document.createElement("canvas");
+            canvas.width = img.naturalWidth;
+            canvas.height = img.naturalHeight;
+            var ctx = canvas.getContext("2d");
+            ctx.drawImage(img, 0, 0);
+            var mime =
+              "image/" + (targetFormat === "jpeg" ? "jpeg" : targetFormat);
+            canvas.toBlob(
+              function (newBlob) {
+                if (newBlob) {
+                  resolve({ blob: newBlob, ext: targetFormat });
+                } else {
+                  resolve({ blob: blob, ext: baseExt });
+                }
+              },
+              mime,
+              0.9,
+            );
+          };
+          img.onerror = function () {
+            resolve({ blob: blob, ext: baseExt });
+          };
+          img.src = URL.createObjectURL(blob);
+        });
+      });
+  }
+
+  function showCorsOverlay(failures) {
+    var overlay = document.createElement("div");
+    overlay.className = "__wb_overlay";
+
+    var itemsHtml = failures
+      .map(function (item) {
+        return `
+        <div class="__wb_overlay_item">
+          <img src="${item.url}" class="__wb_overlay_thumb" />
+          <span class="__wb_overlay_url">${item.url}</span>
+          <button class="__wb_btn __wb_btn-secondary" style="padding: 3px 8px; font-size: 10px;" onclick="navigator.clipboard.writeText('${item.url}')">Copy</button>
+        </div>
+      `;
+      })
+      .join("");
+
+    overlay.innerHTML = `
+      <h3 class="__wb_overlay_title">⚠️ Security Block (CORS)</h3>
+      <p class="__wb_overlay_text">Browser security rules prevent downloading these images automatically. You can still get them:</p>
+      
+      <div style="font-size: 11px; margin-bottom: 12px; color: #ddd; line-height: 1.4; text-align: left;">
+        1. <strong>Right-click</strong> the image in the grid behind this panel and select <strong>"Save image as..."</strong>.<br/>
+        2. Or use the links below to download them manually:
+      </div>
+
+      <div class="__wb_overlay_list">
+        ${itemsHtml}
+      </div>
+
+      <div class="__wb_overlay_btn-row">
+        <button class="__wb_btn __wb_btn-secondary" id="__wb_copy_failed_urls" style="flex: 1;">Copy all URLs</button>
+        <button class="__wb_btn __wb_btn-primary" id="__wb_close_overlay" style="flex: 1;">Close</button>
+      </div>
+    `;
+
+    popup.appendChild(overlay);
+
+    overlay
+      .querySelector("#__wb_copy_failed_urls")
+      .addEventListener("click", function () {
+        var allUrls = failures
+          .map(function (f) {
+            return f.url;
+          })
+          .join("\n");
+        navigator.clipboard.writeText(allUrls).then(function () {
+          toast("All URLs copied!");
+        });
+      });
+
+    overlay
+      .querySelector("#__wb_close_overlay")
+      .addEventListener("click", function () {
+        overlay.remove();
+      });
+  }
+
+  function performDownloads(mode) {
+    var urls = mode === "selected" ? Array.from(state.selected) : state.images;
     if (urls.length === 0) return;
 
-    if (asZip) {
-      var loadZip = typeof JSZip === "undefined";
-      if (loadZip) {
-        toast("Loading ZIP library...");
-        loadScript(JSZIP_CDN, function () { doZipDownload(urls); });
-      } else {
-        doZipDownload(urls);
-      }
-    } else {
-      // Individual downloads
-      urls.forEach(function (url, i) {
-        setTimeout(function () {
-          var a = document.createElement("a");
-          a.href = url;
-          a.download = "image-" + (i + 1) + (state.format === "original" ? "" : "." + state.format);
-          a.target = "_blank";
-          a.click();
-        }, i * 300);
-      });
-      toast("Downloading " + urls.length + " image(s)…");
-    }
-  }
+    toast("Fetching images...");
 
-  function doZipDownload(urls) {
-    var zip = new JSZip();
-    var folder = zip.folder("images");
-    var fetches = urls.map(function (url, i) {
-      return fetch(url)
-        .then(function (r) { return r.blob(); })
-        .then(function (blob) {
-          var ext = url.split(".").pop().split("?")[0].slice(0, 5) || "jpg";
-          if (state.format !== "original") ext = state.format;
-          folder.file("image-" + (i + 1) + "." + ext, blob);
+    var successes = [];
+    var failures = [];
+
+    var promises = urls.map(function (url, i) {
+      return getBlobAndConvert(url, state.format)
+        .then(function (result) {
+          successes.push({
+            url: url,
+            blob: result.blob,
+            ext: result.ext,
+            index: i,
+          });
         })
-        .catch(function () {});
+        .catch(function (err) {
+          failures.push({ url: url, index: i });
+        });
     });
-    toast("Building ZIP…");
-    Promise.all(fetches).then(function () {
-      zip.generateAsync({ type: "blob" }).then(function (content) {
-        var a = document.createElement("a");
-        a.href = URL.createObjectURL(content);
-        a.download = "webexa-images.zip";
-        a.click();
-        toast("ZIP downloaded!");
-      });
+
+    Promise.all(promises).then(function () {
+      if (successes.length > 0) {
+        var loadZip = typeof JSZip === "undefined";
+        var processZip = function () {
+          var zip = new JSZip();
+          var folder = zip.folder("images");
+          successes.forEach(function (item) {
+            folder.file(
+              "image-" + (item.index + 1) + "." + item.ext,
+              item.blob,
+            );
+          });
+          zip.generateAsync({ type: "blob" }).then(function (content) {
+            triggerDownload(content, "webexa-images.zip");
+            toast("ZIP downloaded!");
+            if (failures.length > 0) {
+              showCorsOverlay(failures);
+            }
+          });
+        };
+
+        if (loadZip) {
+          loadScript(JSZIP_CDN, processZip);
+        } else {
+          processZip();
+        }
+      } else {
+        toast("Download blocked by security rules");
+        showCorsOverlay(failures);
+      }
     });
   }
 
@@ -358,24 +526,28 @@
     var body = popup.querySelector(".__wb_body");
     var data = extractStyles();
 
-    var swatchesHtml = data.colors.map(function (c) {
-      var hex = rgbToHex(c);
-      return `
+    var swatchesHtml = data.colors
+      .map(function (c) {
+        var hex = rgbToHex(c);
+        return `
         <div class="__wb_swatch_wrapper">
           <div class="__wb_swatch" style="background:${c}" title="${hex}" onclick="navigator.clipboard.writeText('${hex}').then(()=>{})"></div>
           <span class="__wb_swatch_label">${hex}</span>
         </div>
       `;
-    }).join("");
+      })
+      .join("");
 
-    var fontsHtml = data.fonts.map(function (f) {
-      return `
+    var fontsHtml = data.fonts
+      .map(function (f) {
+        return `
         <div class="__wb_font_card">
           <div class="__wb_font_name">${f}</div>
           <div class="__wb_font_preview" style="font-family:'${f}',sans-serif">Aa Bb Cc 123</div>
         </div>
       `;
-    }).join("");
+      })
+      .join("");
 
     body.innerHTML = `
       <div class="__wb_toolbar">
@@ -387,14 +559,19 @@
       <div class="__wb_fonts">${fontsHtml || '<p class="__wb_empty">No fonts found.</p>'}</div>
     `;
 
-    body.querySelector("#__wb_copy_all_colors").addEventListener("click", function () {
-      var hexColors = data.colors.map(rgbToHex).join(", ");
-      navigator.clipboard.writeText(hexColors).then(function () {
-        toast("Colors copied!");
-      }).catch(function () {
-        toast("Copy failed — try manually.");
+    body
+      .querySelector("#__wb_copy_all_colors")
+      .addEventListener("click", function () {
+        var hexColors = data.colors.map(rgbToHex).join(", ");
+        navigator.clipboard
+          .writeText(hexColors)
+          .then(function () {
+            toast("Colors copied!");
+          })
+          .catch(function () {
+            toast("Copy failed — try manually.");
+          });
       });
-    });
 
     body.querySelectorAll(".__wb_swatch").forEach(function (sw) {
       sw.addEventListener("click", function () {
@@ -423,21 +600,27 @@
 
   // ─── Drag to move popup ────────────────────────────────────────────────────
   var header = popup.querySelector(".__wb_header");
-  var isDragging = false, startX, startY, initRight, initTop;
+  var isDragging = false,
+    startX,
+    startY,
+    initRight,
+    initTop;
   header.style.cursor = "grab";
   header.addEventListener("mousedown", function (e) {
     if (e.target.id === "__wb_close_btn") return;
     isDragging = true;
-    startX = e.clientX; startY = e.clientY;
+    startX = e.clientX;
+    startY = e.clientY;
     initRight = parseInt(popup.style.right || 20, 10);
     initTop = parseInt(popup.style.top || 20, 10);
     header.style.cursor = "grabbing";
   });
   document.addEventListener("mousemove", function (e) {
     if (!isDragging) return;
-    var dx = e.clientX - startX, dy = e.clientY - startY;
-    popup.style.right = (initRight - dx) + "px";
-    popup.style.top = (initTop + dy) + "px";
+    var dx = e.clientX - startX,
+      dy = e.clientY - startY;
+    popup.style.right = initRight - dx + "px";
+    popup.style.top = initTop + dy + "px";
   });
   document.addEventListener("mouseup", function () {
     isDragging = false;
@@ -447,7 +630,9 @@
   // ─── Tab switching ────────────────────────────────────────────────────────────
   popup.querySelectorAll(".__wb_tab").forEach(function (tab) {
     tab.addEventListener("click", function () {
-      popup.querySelectorAll(".__wb_tab").forEach(function (t) { t.classList.remove("__wb_active"); });
+      popup.querySelectorAll(".__wb_tab").forEach(function (t) {
+        t.classList.remove("__wb_active");
+      });
       tab.classList.add("__wb_active");
       state.tab = tab.dataset.tab;
       if (state.tab === "images") renderImages();
