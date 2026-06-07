@@ -8,6 +8,8 @@ import { useLanguage } from "@/lib/LanguageContext";
 import { ImageIcon, Palette } from "lucide-react";
 import { Logo } from "./Logo";
 
+
+
 // ─── Mock data for the visual demo ──────────────────────────────────────────
 const MOCK_IMAGES = [
   {
@@ -147,9 +149,7 @@ export function BookmarkletMockup() {
                 {t("featImgClear")}
               </button>
               <select className="text-[11px] pl-2 pr-6 py-1 rounded-lg bg-white/8 text-white/60 border border-white/8 outline-none ml-auto cursor-pointer appearance-none bg-[url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20fill%3D%22none%22%20viewBox%3D%220%200%2020%2020%22%3E%3Cpath%20stroke%3D%22%23ffffff80%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20stroke-width%3D%221.5%22%20d%3D%22m6%208%204%204%204-4%22%2F%3E%3C%2Fsvg%3E')] bg-[size:1rem_1rem] bg-[right_0.25rem_center] bg-no-repeat">
-                <option className="bg-[#15151a] text-white">
-                  {t("featImgOriginal")}
-                </option>
+                <option className="bg-[#15151a] text-white">{t("featImgOriginal")}</option>
                 <option className="bg-[#15151a] text-white">PNG</option>
                 <option className="bg-[#15151a] text-white">JPEG</option>
                 <option className="bg-[#15151a] text-white">WebP</option>
@@ -160,14 +160,14 @@ export function BookmarkletMockup() {
               <button
                 className={cn(
                   "text-[11px] px-3 py-1.5 rounded-lg font-semibold transition-all border border-primary/20",
-                  selectedImages.size > 0
-                    ? "bg-primary text-white hover:bg-primary/80 cursor-pointer"
-                    : "bg-white/5 text-white/30 cursor-not-allowed",
+                  selectedImages.size > 0 ? "bg-primary text-white hover:bg-primary/80 cursor-pointer" : "bg-white/5 text-white/30 cursor-not-allowed",
                 )}
               >
                 {t("featImgDownloadSelected")} ({selectedImages.size})
               </button>
-              <button className="bg-primary text-[11px] px-3 py-1.5 rounded-lg font-semibold transition-all border border-primary/20 text-white hover:bg-primary/80 cursor-pointer">
+              <button
+                className="text-[11px] px-3 py-1.5 rounded-lg font-semibold transition-all border border-white/8 bg-white/8 text-white/60 hover:bg-white/12 hover:text-white/90 cursor-pointer"
+              >
                 {t("featImgDownloadAll")}
               </button>
             </div>
