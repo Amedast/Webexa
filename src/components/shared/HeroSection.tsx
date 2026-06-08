@@ -15,19 +15,16 @@ export function HeroSection() {
         {/* Text column */}
         <div className="space-y-8">
           <div className="animate-reveal-up delay-100">
+            <span className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/8 px-3 py-1 text-[11px] font-bold tracking-wider text-primary uppercase mb-6">
+              Bookmarklet
+            </span>
             <h1
               className="text-5xl sm:text-6xl lg:text-7xl font-extrabold text-foreground leading-[0.95] tracking-tight"
               style={{ fontFamily: "var(--font-display)" }}
             >
               {t("heroTitlePart1")}
               <br />
-              <span
-                className="text-transparent bg-clip-text"
-                style={{
-                  backgroundImage:
-                    "linear-gradient(135deg, oklch(0.72 0.2 295), oklch(0.6 0.18 220))",
-                }}
-              >
+              <span className="text-primary">
                 {t("heroTitlePart2")}
               </span>
               <br />
@@ -47,7 +44,7 @@ export function HeroSection() {
               href="#install"
               className={cn(
                 buttonVariants({ size: "lg" }),
-                "rounded-full px-8 font-semibold text-base",
+                "rounded-full px-8 font-semibold text-base transition-all duration-200 hover:scale-[1.02] active:scale-[0.97]",
               )}
             >
               {t("heroInstallBtn")} →
@@ -56,7 +53,7 @@ export function HeroSection() {
               href="#features"
               className={cn(
                 buttonVariants({ variant: "outline", size: "lg" }),
-                "rounded-full px-8 text-base border-white/10 hover:bg-white/5",
+                "rounded-full px-8 text-base border-white/10 hover:bg-white/5 transition-all duration-200 hover:scale-[1.02] active:scale-[0.97]",
               )}
             >
               {t("heroHowBtn")}
@@ -74,4 +71,3 @@ export function HeroSection() {
     </section>
   );
 }
-

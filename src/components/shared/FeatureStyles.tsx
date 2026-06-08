@@ -4,8 +4,6 @@ import { useState } from "react";
 import { Badge } from "@/components/ui/badge";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { useLanguage } from "@/lib/LanguageContext";
-import { Palette } from "lucide-react";
-
 
 const MOCK_COLORS = [
   { hex: "#6D28D9", label: "Primary" },
@@ -56,41 +54,72 @@ export function FeatureStyles() {
 
   return (
     <section className="py-24">
-      <div className="max-w-6xl mx-auto px-6">
-        <div className="grid lg:grid-cols-2 gap-16 items-center">
-          {/* Demo panel — left on this section */}
-          <div className="glass-card rounded-2xl p-6 space-y-6 order-2 lg:order-1">
-            {/* Colors */}
-            <div>
-              <div className="flex items-center justify-between mb-3">
+      <div className="max-w-5xl mx-auto px-6">
+        {/* Full-width header */}
+        <div className="mb-16">
+          <h2
+            className="text-4xl sm:text-5xl font-extrabold text-foreground tracking-tight leading-tight"
+            style={{ fontFamily: "var(--font-display)" }}
+          >
+            {t("featStyleHeadingPart1")}{" "}
+            <span className="text-primary">
+              {t("featStyleHeadingPart2")}
+            </span>
+          </h2>
+          <p className="text-muted-foreground mt-4 max-w-2xl leading-relaxed">
+            {t("featStyleDesc")}
+          </p>
+
+          <ul className="mt-6 grid sm:grid-cols-2 md:grid-cols-4 gap-4 text-sm text-muted-foreground">
+            {[
+              t("featStyleBullet1"),
+              t("featStyleBullet2"),
+              t("featStyleBullet3"),
+              t("featStyleBullet4"),
+            ].map((item) => (
+              <li key={item} className="flex items-start gap-2.5">
+                <span className="text-primary/60 flex-shrink-0">—</span>
+                <span>{item}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        {/* Demo container layout */}
+        <div className="grid md:grid-cols-3 gap-6">
+          {/* Colors (left side, width: 1 col) */}
+          <div className="double-bezel md:col-span-1">
+            <div className="double-bezel-inner p-5 h-full space-y-5">
+              <div className="flex items-center justify-between">
                 <p className="text-[10px] text-white/40 font-bold uppercase tracking-widest font-mono">
                   {t("featStyleColorsExtracted", { count: MOCK_COLORS.length })}
                 </p>
                 <button
                   onClick={() => handleCopy(MOCK_COLORS.map((c) => c.hex).join(", "))}
-                  className="text-[11px] px-2.5 py-1 rounded-lg bg-white/8 text-white/50 hover:text-white/80 border border-white/8 transition-colors font-semibold cursor-pointer"
+                  className="text-[10px] px-2 py-0.5 rounded bg-white/8 text-white/50 hover:text-white/80 border border-white/8 transition-all duration-200 active:scale-95 font-semibold cursor-pointer"
                 >
                   {copied ? t("featStyleCopied") : t("featStyleCopyAll")}
                 </button>
               </div>
-              <div className="flex flex-wrap gap-3">
+
+              <div className="grid grid-cols-5 gap-2.5">
                 {MOCK_COLORS.map((c) => (
                   <Tooltip key={c.hex}>
                     <TooltipTrigger
-                      className="group flex flex-col items-center gap-1.5 transition-transform hover:scale-110 cursor-pointer bg-transparent border-0 p-0"
+                      className="group flex flex-col items-center gap-1 transition-all duration-200 hover:scale-110 active:scale-90 cursor-pointer bg-transparent border-0 p-0"
                       onClick={() => handleCopy(c.hex)}
                     >
                       <div
-                        className="w-10 h-10 rounded-xl border border-white/10 shadow-md relative overflow-hidden"
+                        className="w-8 h-8 rounded-lg border border-white/10 shadow-md relative overflow-hidden"
                         style={{ background: c.hex }}
                       >
                         {copied === c.hex && (
-                          <div className="absolute inset-0 bg-black/40 flex items-center justify-center text-white text-xs">
+                          <div className="absolute inset-0 bg-black/40 flex items-center justify-center text-white text-[10px]">
                             ✓
                           </div>
                         )}
                       </div>
-                      <span className="text-[9px] text-white/30 font-mono">{c.label}</span>
+                      <span className="text-[8px] text-white/30 font-mono truncate w-full text-center">{c.label}</span>
                     </TooltipTrigger>
                     <TooltipContent side="top" className="text-xs">
                       {c.hex} · Click to copy
@@ -99,34 +128,35 @@ export function FeatureStyles() {
                 ))}
               </div>
             </div>
+          </div>
 
-            {/* Divider */}
-            <div className="border-t border-white/6" />
-
-            {/* Fonts */}
-            <div>
-              <p className="text-[10px] text-white/40 font-bold uppercase tracking-widest mb-3 font-mono">
+          {/* Fonts (right side, width: 2 cols) */}
+          <div className="double-bezel md:col-span-2">
+            <div className="double-bezel-inner p-5 h-full space-y-4">
+              <p className="text-[10px] text-white/40 font-bold uppercase tracking-widest font-mono">
                 {t("featStyleFontsFamilies", { count: MOCK_FONTS.length })}
               </p>
-              <div className="space-y-3">
+              <div className="grid sm:grid-cols-3 gap-4">
                 {MOCK_FONTS.map((f) => (
                   <div
                     key={f.name}
-                    className="bg-white/4 rounded-xl p-4 border border-white/6 hover:border-white/12 transition-colors"
+                    className="bg-white/4 rounded-xl p-3.5 border border-white/6 hover:border-white/20 transition-all duration-200 active:scale-[0.97] cursor-pointer flex flex-col justify-between"
                   >
-                    <div className="flex items-center justify-between mb-2">
-                      <div className="flex items-center gap-2">
-                        <span className="text-[11px] text-white/50 font-mono">{f.name}</span>
-                        <Badge variant="secondary" className="text-[9px] px-1.5 py-0 font-medium">
+                    <div>
+                      <div className="flex items-center justify-between gap-1 mb-2">
+                        <span className="text-[10px] text-white/50 font-mono truncate">{f.name}</span>
+                        <Badge variant="secondary" className="text-[8px] px-1 py-0 font-medium whitespace-nowrap bg-white/5 border-white/10">
                           {f.role}
                         </Badge>
                       </div>
-                      <span className="text-[10px] text-white/30 font-mono">
+                      <p
+                        className="text-[10px] text-white/30 font-mono mb-4"
+                      >
                         {f.sizes.join(" / ")}
-                      </span>
+                      </p>
                     </div>
                     <p
-                      className="text-lg text-white/80 leading-tight"
+                      className="text-base text-white/80 leading-tight mt-auto"
                       style={{ fontFamily: f.name === "Outfit" ? "var(--font-display)" : f.name, fontWeight: f.weight }}
                     >
                       {f.preview}
@@ -135,51 +165,6 @@ export function FeatureStyles() {
                 ))}
               </div>
             </div>
-          </div>
-
-          {/* Text — right on this section */}
-          <div className="space-y-6 order-1 lg:order-2">
-            <Badge
-              variant="secondary"
-              className="border border-primary/30 bg-primary/10 text-primary text-xs inline-flex items-center gap-1.5"
-            >
-              <Palette className="w-3.5 h-3.5" />
-              <span>{t("featStyleBadge")}</span>
-            </Badge>
-            <h2
-              className="text-4xl sm:text-5xl font-extrabold text-foreground tracking-tight leading-tight"
-              style={{ fontFamily: "var(--font-display)" }}
-            >
-              {t("featStyleHeadingPart1")}{" "}
-              <span
-                className="text-transparent bg-clip-text"
-                style={{
-                  backgroundImage:
-                    "linear-gradient(135deg, oklch(0.72 0.2 295), oklch(0.6 0.18 220))",
-                }}
-              >
-                {t("featStyleHeadingPart2")}
-              </span>
-            </h2>
-            <p className="text-muted-foreground leading-relaxed">
-              {t("featStyleDesc")}
-            </p>
-
-            <ul className="space-y-3 text-sm text-muted-foreground">
-              {[
-                t("featStyleBullet1"),
-                t("featStyleBullet2"),
-                t("featStyleBullet3"),
-                t("featStyleBullet4"),
-              ].map((item) => (
-                <li key={item} className="flex items-start gap-3">
-                  <span className="w-5 h-5 rounded-full bg-primary/15 border border-primary/30 flex items-center justify-center text-[10px] text-primary flex-shrink-0 mt-0.5">
-                    ✓
-                  </span>
-                  {item}
-                </li>
-              ))}
-            </ul>
           </div>
         </div>
       </div>

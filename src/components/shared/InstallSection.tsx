@@ -7,7 +7,6 @@ import { cn } from "@/lib/utils";
 import { useLanguage } from "@/lib/LanguageContext";
 import { Logo } from "./Logo";
 
-
 interface InstallSectionProps {
   bookmarkletCode?: string;
 }
@@ -49,21 +48,12 @@ export function InstallSection({ bookmarkletCode = "" }: InstallSectionProps) {
       <div className="max-w-4xl mx-auto px-6">
         {/* Header */}
         <div className="text-center mb-16">
-          <p className="text-primary text-sm font-semibold tracking-widest uppercase mb-3">
-            {t("instTitle")}
-          </p>
           <h2
             className="text-4xl sm:text-5xl font-extrabold text-foreground tracking-tight mb-4"
             style={{ fontFamily: "var(--font-display)" }}
           >
             {t("instHeadingPart1")}{" "}
-            <span
-              className="text-transparent bg-clip-text"
-              style={{
-                backgroundImage:
-                  "linear-gradient(135deg, oklch(0.72 0.2 295), oklch(0.6 0.18 220))",
-              }}
-            >
+            <span className="text-primary">
               {t("instHeadingPart2")}
             </span>
           </h2>
@@ -74,23 +64,23 @@ export function InstallSection({ bookmarkletCode = "" }: InstallSectionProps) {
 
         {/* Drag target CTA */}
         <div className="flex justify-center mb-14">
-          <div className="text-center space-y-6">
-            <p className="text-sm text-muted-foreground animate-bounce">
+          <div className="text-center space-y-5">
+            <p className="text-xs font-semibold tracking-wider text-muted-foreground uppercase">
               {t("instDragBadge")}
             </p>
 
-            {/* The actual bookmarklet link */}
+            {/* The actual bookmarklet link - Clean premium styling */}
             <a
               ref={linkRef}
               href="#"
               id="bookmarklet-install-link"
               className={cn(
-                "drag-target inline-flex items-center gap-3 px-8 py-4 rounded-2xl",
-                "border-2 border-primary/40 bg-primary/10 text-foreground",
-                "font-semibold text-base transition-all duration-200 cursor-grab",
-                "hover:border-primary/70 hover:bg-primary/20 hover:scale-105",
-                "shadow-lg shadow-primary/10 select-none",
-                dragging && "scale-110 border-primary shadow-xl shadow-primary/20"
+                "drag-target inline-flex items-center gap-3 px-8 py-4 rounded-full",
+                "border border-white/10 bg-white/5 text-foreground",
+                "font-semibold text-base transition-all duration-300 cursor-grab",
+                "hover:border-primary/50 hover:bg-white/10 hover:scale-105 active:scale-95",
+                "shadow-lg shadow-black/35 select-none",
+                dragging && "scale-110 border-primary bg-white/10 shadow-xl shadow-black/50"
               )}
               onDragStart={() => setDragging(true)}
               onDragEnd={() => setDragging(false)}
@@ -109,13 +99,13 @@ export function InstallSection({ bookmarkletCode = "" }: InstallSectionProps) {
         </div>
 
         {/* Browser-specific instructions */}
-        <Card className="border-border/50 bg-card/60">
+        <Card className="border-white/10 bg-white/5">
           <CardContent className="pt-6">
             <Tabs defaultValue="chrome">
-              <TabsList className="grid w-full grid-cols-3 mb-6">
-                <TabsTrigger value="chrome">Chrome</TabsTrigger>
-                <TabsTrigger value="firefox">Firefox</TabsTrigger>
-                <TabsTrigger value="safari">Safari</TabsTrigger>
+              <TabsList className="grid w-full grid-cols-3 mb-6 bg-white/5 border border-white/10 p-1 rounded-full">
+                <TabsTrigger value="chrome" className="rounded-full data-[state=active]:bg-primary data-[state=active]:text-white">Chrome</TabsTrigger>
+                <TabsTrigger value="firefox" className="rounded-full data-[state=active]:bg-primary data-[state=active]:text-white">Firefox</TabsTrigger>
+                <TabsTrigger value="safari" className="rounded-full data-[state=active]:bg-primary data-[state=active]:text-white">Safari</TabsTrigger>
               </TabsList>
 
               {(Object.entries(BROWSER_STEPS) as [string, string[]][]).map(

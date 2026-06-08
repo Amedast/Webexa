@@ -5,10 +5,8 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
 import { useLanguage } from "@/lib/LanguageContext";
-import { ImageIcon, Palette } from "lucide-react";
+import { Image as ImageIcon, PaintBrush } from "@phosphor-icons/react";
 import { Logo } from "./Logo";
-
-
 
 // ─── Mock data for the visual demo ──────────────────────────────────────────
 const MOCK_IMAGES = [
@@ -116,14 +114,14 @@ export function BookmarkletMockup() {
             value="images"
             className="text-xs rounded-md data-[state=active]:bg-primary/15 data-[state=active]:text-primary text-white/40 inline-flex items-center gap-1.5 cursor-pointer"
           >
-            <ImageIcon className="w-3.5 h-3.5" />
+            <ImageIcon className="w-3.5 h-3.5" weight="light" />
             <span>{t("mockTabImages")}</span>
           </TabsTrigger>
           <TabsTrigger
             value="styles"
             className="text-xs rounded-md data-[state=active]:bg-primary/15 data-[state=active]:text-primary text-white/40 inline-flex items-center gap-1.5 cursor-pointer"
           >
-            <Palette className="w-3.5 h-3.5" />
+            <PaintBrush className="w-3.5 h-3.5" weight="light" />
             <span>{t("mockTabStyles")}</span>
           </TabsTrigger>
         </TabsList>
